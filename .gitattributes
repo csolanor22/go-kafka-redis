@@ -1,0 +1,10 @@
+# Enforce LF for all standard text files (Go, Markdown, YAML, Dockerfiles)
+# This prevents Windows CRLF from breaking scripts/builds inside Linux containers.
+* text=auto eol=lf
+
+# Explicitly set binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
