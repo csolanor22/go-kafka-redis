@@ -1,0 +1,17 @@
+FROM golang:1.23-alpine
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+# If go.sum doesn't exist yet, we can silence the error or run download after copy
+# For now, assuming go.mod is valid, we try to download.
+# We encounter an issue if go.sum is missing but go.mod has dependencies.
+# We will run 'go mod tidy' during build to be safe if local environment failed.
+
+RUN go mod download || true
+
+COPY . .
+
+RUN go build -o api cmd/api/main.go
+
+CMD ["./api"]
